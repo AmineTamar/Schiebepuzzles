@@ -1,71 +1,91 @@
 let rows = 3;
 let columns = 3;
-let currTile;
-let blankTile;
 let turns = 0;
-/*let imgOrder = ["4", "2", "8", "1", "9", "6", "7", "5", "3"]; */
-let imgOrder = ["1", "2", "6", "4", "5", "3", "7", "8", "9"]
-let winMessage ="Du hast Gewonnen!"
+/*let imgOrder = ["1", "2", "6", "4", "5", "3", "7", "8", "9"];   (to test the game fast)*/
+let imgOrder = ["4", "2", "8", "1", "9", "6", "7", "5", "3"];
+let winMessage = "Du hast Gewonnen!";
+let gameIsWon = false;
 
 window.onload = function () {
+  createGameBoard();
+};
+
+function createGameBoard() {
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < columns; c++) {
       let tile = document.createElement("img");
       tile.id = r.toString() + "-" + c.toString();
       tile.src = imgOrder.shift() + ".jpg";
-      tile.addEventListener("click", () => moveTile(tile, r, c));
+      tile.addEventListener("click", tileClickHandler);
       document.getElementById("board").append(tile);
     }
   }
-};
+}
 
-function moveTile(tile, row, col) {
-  // Get the blank tile's position
+function tileClickHandler() {
+  if (gameIsWon) {
+    return; // Stop tile movement if the game is already won
+  }
+
+  const tile = this;
+  const row = parseInt(tile.id.charAt(0), 10);
+  const col = parseInt(tile.id.charAt(2), 10);
+
   const blankPosition = document.getElementById("board").querySelector('img[src*="3.jpg"]').id.split("-");
-
   const blankRow = parseInt(blankPosition[0], 10);
   const blankCol = parseInt(blankPosition[1], 10);
 
-  // Check if the clicked tile is adjacent to the blank tile
   if (
     (row === blankRow && Math.abs(col - blankCol) === 1) ||
     (col === blankCol && Math.abs(row - blankRow) === 1)
   ) {
-    // Swap the positions of the clicked tile and the blank tile
     const tempSrc = tile.src;
     tile.src = document.getElementById(blankPosition.join("-")).src;
     document.getElementById(blankPosition.join("-")).src = tempSrc;
 
-    // Swap the values in the imageOrder array
     const clickedIndex = row * columns + col;
     const blankIndex = blankRow * columns + blankCol;
     [imgOrder[clickedIndex], imgOrder[blankIndex]] = [imgOrder[blankIndex], imgOrder[clickedIndex]];
 
-    // Update the turn counter
     turns++;
     document.getElementById("turns").innerText = turns.toString();
 
-checkWin();
-
-    
+    checkWin();
   }
 }
 
 function checkWin() {
-  let orderedImgSrc = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg"];
+  const orderedImgSrc = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg"];
   let boardTiles = document.getElementById("board").getElementsByTagName("img");
 
   for (let i = 0; i < boardTiles.length; i++) {
     if (boardTiles[i].src.endsWith(orderedImgSrc[i])) {
       continue;
     } else {
-      return; // If any tile is not in the correct position, exit the function
+      return;
     }
   }
 
-  // If all tiles are in the correct order, display the victory message
+  gameIsWon = true;
   let message = document.getElementById("message-el");
   message.innerHTML = winMessage;
+  document.getElementById("play-again-btn").style.display = "block";
 }
 
+function playAgain() {
+  // Clear the board and reset game state
+  document.getElementById("board").innerHTML = "";
+  imgOrder = ["4", "2", "8", "1", "9", "6", "7", "5", "3"];
+  turns = 0;
+  gameIsWon = false;
 
+  // Reset turns and victory message display
+  document.getElementById("turns").innerText = turns.toString();
+  document.getElementById("message-el").innerHTML = "Viel Glück!";
+
+  // Create a new game board
+  createGameBoard();
+
+  // Hide the "Play Again" button after clicking it
+  document.getElementById("play-again-btn").style.display = "none";
+}
