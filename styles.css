@@ -1,3 +1,4 @@
+
 body{
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
@@ -8,14 +9,45 @@ body{
 #board{
   width: 360px;
   height: 360px;
-  background-color: aqua;
   border: 10px solid #FE9CCD;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 #board img{
 width: 118px;
 height: 118px;
 border: 1px solid black;
+}
+.winbox{
+ 
+
+  background-color: #7DD4FF;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid;
+  margin: auto;
+  width: 50%;
+  margin-top: 15px;
+  
+  
+}
+p{
+  
+  margin: 15px;
+  color: black;
+  font-size: 2em;
+}
+#play-again-btn{
+  
+  padding: 15px;
+  background-color: #FE9CCD;
+  border: none;
+  border-radius: 5px;
+  
+ 
 }

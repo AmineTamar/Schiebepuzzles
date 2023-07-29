@@ -3,7 +3,9 @@ let columns = 3;
 let currTile;
 let blankTile;
 let turns = 0;
-let imgOrder = ["4", "2", "8", "1", "9", "6", "7", "5", "3"];
+/*let imgOrder = ["4", "2", "8", "1", "9", "6", "7", "5", "3"]; */
+let imgOrder = ["1", "2", "6", "4", "5", "3", "7", "8", "9"]
+let winMessage ="Du hast Gewonnen!"
 
 window.onload = function () {
   for (let r = 0; r < rows; r++) {
@@ -43,9 +45,27 @@ function moveTile(tile, row, col) {
     turns++;
     document.getElementById("turns").innerText = turns.toString();
 
-    
+checkWin();
+
     
   }
+}
+
+function checkWin() {
+  let orderedImgSrc = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg"];
+  let boardTiles = document.getElementById("board").getElementsByTagName("img");
+
+  for (let i = 0; i < boardTiles.length; i++) {
+    if (boardTiles[i].src.endsWith(orderedImgSrc[i])) {
+      continue;
+    } else {
+      return; // If any tile is not in the correct position, exit the function
+    }
+  }
+
+  // If all tiles are in the correct order, display the victory message
+  let message = document.getElementById("message-el");
+  message.innerHTML = winMessage;
 }
 
 
