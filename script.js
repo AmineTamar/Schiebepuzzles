@@ -1,8 +1,8 @@
 let rows = 3;
 let columns = 3;
 let turns = 0;
-let imgOrder = ["1", "2", "6", "4", "5", "3", "7", "8", "9"];   /*(to test the game fast)
-let imgOrder = ["4", "2", "8", "1", "9", "6", "7", "5", "3"];*/
+/*let imgOrder = ["1", "2", "6", "4", "5", "3", "7", "8", "9"];   (to test the game fast) */
+let imgOrder = ["4", "2", "8", "1", "9", "6", "7", "5", "3"];
 let winMessage = "Du hast Gewonnen!";
 let gameIsWon = false;
 document.getElementById("full-img").style.display = "none";
