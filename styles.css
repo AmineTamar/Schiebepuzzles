@@ -6,7 +6,14 @@ body{
   
 }
 
-#board{
+#main-img{
+  width: 360px !important;
+  height: 360px !important;
+  
+}
+
+#board , #full-img{
+
   width: 360px;
   height: 360px;
   border: 10px solid #FE9CCD;
@@ -20,6 +27,7 @@ width: 118px;
 height: 118px;
 border: 1px solid black;
 }
+
 .winbox{
  
 

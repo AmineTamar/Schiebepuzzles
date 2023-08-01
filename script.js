@@ -1,10 +1,11 @@
 let rows = 3;
 let columns = 3;
 let turns = 0;
-/*let imgOrder = ["1", "2", "6", "4", "5", "3", "7", "8", "9"];   (to test the game fast)*/
-let imgOrder = ["4", "2", "8", "1", "9", "6", "7", "5", "3"];
+let imgOrder = ["1", "2", "6", "4", "5", "3", "7", "8", "9"];   /*(to test the game fast)
+let imgOrder = ["4", "2", "8", "1", "9", "6", "7", "5", "3"];*/
 let winMessage = "Du hast Gewonnen!";
 let gameIsWon = false;
+document.getElementById("full-img").style.display = "none";
 
 window.onload = function () {
   createGameBoard();
@@ -67,6 +68,18 @@ function checkWin() {
   }
 
   gameIsWon = true;
+
+
+  //display whole img when the game is won
+  document.getElementById("full-img").style.display = "block";
+  let img = document.createElement("img");
+  img.src="10.jpg"
+  img.id="main-img"
+  document.getElementById("full-img").append(img);
+  document.getElementById("board").style.display = "none";
+
+
+// add wining message
   let message = document.getElementById("message-el");
   message.innerHTML = winMessage;
   document.getElementById("play-again-btn").style.display = "block";
@@ -78,6 +91,8 @@ function playAgain() {
   imgOrder = ["4", "2", "8", "1", "9", "6", "7", "5", "3"];
   turns = 0;
   gameIsWon = false;
+
+  
 
   // Reset turns and victory message display
   document.getElementById("turns").innerText = turns.toString();
